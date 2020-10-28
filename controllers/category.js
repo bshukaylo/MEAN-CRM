@@ -1,5 +1,5 @@
 module.exports.getAll = function (req, resp) {
-
+    resp.json({message: 'Categories'})
 }
 module.exports.getById = function (req, resp) {
 

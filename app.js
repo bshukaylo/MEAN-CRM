@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const passport = require('passport')
 const authRoutes = require('./routes/auth')
 const analyticsRoutes = require('./routes/analytics')
 const categoryRoutes = require('./routes/category')
@@ -12,6 +13,10 @@ const app = express()
 mongoose.connect(keys.mongoURI,{ useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('db start success'))
     .catch(error => console.log(error))
+
+//passport
+app.use(passport.initialize())
+require('./middleware/passport')(passport)
 
 //better logs
 app.use(require('morgan')('dev'))
