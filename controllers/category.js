@@ -30,16 +30,34 @@ module.exports.remove = async function (req, resp) {
     }
 }
 
-module.exports.create = function (req, resp) {
+module.exports.create = async function (req, resp) {
+    console.log(req.file)
+    const category = new Category({
+        name: req.body.name,
+        user: req.user.id,
+        imageSrc: req.file ? req.file.path : ''
+    })
     try {
-
+        await category.save()
+        resp.status(201).json(category)
     } catch (e) {
         errorHandler(resp, e)
     }
 }
 
-module.exports.update = function (req, resp) {
+module.exports.update = async function (req, resp) {
+    const updated = {
+        name: req.body.name,
+    }
+    if (req.file) {
+        updated.imageSrc = req.file.path
+    }
     try {
+        const category = Category.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set:updated},
+            {new:true})
+        resp.status(200).json(category)
     } catch (e) {
         errorHandler(resp, e)
     }

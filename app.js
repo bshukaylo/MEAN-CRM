@@ -21,6 +21,9 @@ require('./middleware/passport')(passport)
 //better logs
 app.use(require('morgan')('dev'))
 
+//make uploads accessible by get request i.e. http://localhost:5000/uploads/30102020-203359_647cat.jpg
+app.use('/uploads', express.static('uploads'))
+
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 //cross origin resource sharing
