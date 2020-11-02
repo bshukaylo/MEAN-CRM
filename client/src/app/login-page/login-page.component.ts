@@ -43,7 +43,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     this.form.disable()
     //т.к. в this.form.value всего 2 компонента password и email - это и есть требуемый для логина юзер:
     this.subscription = this.auth.login(this.form.value).subscribe(
-      () => this.router.navigate(['overview/']),
+      () => {
+        this.router.navigate(['overview/'])
+      },
       () => {
         console.warn('login error');
         this.form.enable()
