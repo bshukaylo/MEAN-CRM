@@ -28,8 +28,8 @@ export class AuthService {
     localStorage.clear()
   }
 
-  register() {
-
+  register(user: User): Observable<User> {
+    return this.http.post<User>('/api/auth/register', user)
   }
 
   login(user: User): Observable<{ token: string }> {
