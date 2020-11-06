@@ -4,7 +4,7 @@ const errorHandler = require('../utils/errorHandler')
 
 module.exports.getAll = async function (req, resp) {
     try {
-        const categories = await Category.find({user:req.user.id})
+        const categories = await Category.find({user: req.user.id})
         resp.status(200).json(categories)
     } catch (e) {
         errorHandler(resp, e)
@@ -45,20 +45,23 @@ module.exports.create = async function (req, resp) {
     }
 }
 
-module.exports.update = async function (req, resp) {
+module.exports.update = async function (req, res) {
     const updated = {
-        name: req.body.name,
+        name: req.body.name
     }
+
     if (req.file) {
         updated.imageSrc = req.file.path
     }
+
     try {
-        const category = Category.findOneAndUpdate(
+        const category = await Category.findOneAndUpdate(
             {_id: req.params.id},
-            {$set:updated},
-            {new:true})
-        resp.status(200).json(category)
+            {$set: updated},
+            {new: true}
+        )
+        res.status(200).json(category)
     } catch (e) {
-        errorHandler(resp, e)
+        errorHandler(res, e)
     }
 }
