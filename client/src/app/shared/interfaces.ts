@@ -1,5 +1,5 @@
 export interface User {
-  email : string,
+  email: string,
   password: string
 }
 
@@ -8,4 +8,8 @@ export interface Category {
   imageSrc?: string,
   user?: string,
   _id?: string
+}
+
+export interface Message {
+  message: string
 }
