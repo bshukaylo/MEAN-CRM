@@ -41,7 +41,7 @@ module.exports.update = async function (req, resp) {
         //filter -> по какому полю ищем
         // doc -> какие поля меняем, т.к. $set, то те что в body
         //options - new -> вернуть обновленную сущность, а не до изменения
-        const position = Position.findOneAndUpdate(
+        const position = await Position.findOneAndUpdate(
             {_id: req.params.id},
             {$set: req.body},
             {new:true}
